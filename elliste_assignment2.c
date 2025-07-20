@@ -225,7 +225,7 @@ void free_memory(movie *head) {
 // <-------- Main Function -------->
 // calls all print statements in order to match given project example in the
 // instruction screenshots, makes calls to functions, and end program
-int main(int argc, const char *argv) {
+int main(int argc, const char *argv[]) {
     if (argc < 2) {
         fprintf(stderr, "please enter a valid filename", argv[0]);
         return 1;
