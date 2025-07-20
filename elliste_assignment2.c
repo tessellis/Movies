@@ -237,7 +237,7 @@ int main(int argc, const char *argv) {
     movie *movies = read_movie_csv(filename, &movie_count);
 
     // first line of output
-    printf("Processed %s and parsed data from %d movies\n\n", filename, movie_count);
+    printf("Processed file %s and parsed data from %d movies\n\n", filename, movie_count);
 
     // options menu
     int choice;
