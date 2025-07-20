@@ -55,15 +55,15 @@ movie *build_movie(char *title, int year, char langs[][MAX_LANG_LEN], int lang_c
 // Reads CSV file and builds linked list of movies
 movie *read_movie_csv(const char *filename, int *movie_count) {
     // opening file
-    FILE *fp = fopen(filename, "r");
-    if (!fp) {
+    FILE *file = fopen(filename, "r");
+    if (!file) {
         perror("File error, try again.");
         return NULL;
     }
 
     char line[1024];
     // skipping header line
-    fgets(line, sizeof(line), fp);
+    fgets(line, sizeof(line), file);
 
     // resetting head and tail
     movie *head = NULL;
@@ -71,7 +71,7 @@ movie *read_movie_csv(const char *filename, int *movie_count) {
     *movie_count = 0;
 
     // reading though csv of format: Title,Year,Languages,Rating Value
-    while(fgets(line, sizeof(line), fp)) {
+    while(fgets(line, sizeof(line), file)) {
         char *title = strtok(line, ",");
         char *str_year = strtok(NULL, ",");
         char *str_lang = strtok(NULL, ",");
@@ -119,7 +119,7 @@ movie *read_movie_csv(const char *filename, int *movie_count) {
         (*movie_count)++;
     }
     // closing file
-    fclose(fp);
+    fclose(file);
     return head;
 }
 
