@@ -15,22 +15,22 @@
 #define MAX_YEAR 2021
 #define RANGE_YEAR (MAX_YEAR - MIN_YEAR + 1)
 
-// defining Movie node structure as per intruct
+// defining movie node structure as per intruct
 // storing as singly linked list
-typedef struct Movie {
+typedef struct movie {
     char *title;
     int year;
     char langs[MAX_LANG][MAX_LANG_LEN];
     int language_count;
     double rating;
-    struct Movie *next;
-} Movie;
+    struct movie *next;
+} movie;
 
 // <---- Movile Building Function ----->
 // allocates memoty and initializes a new movie node
-Movie *build_movie(char *title, int year, char langs[][MAX_LANG_LEN], int lang_count, double rating) {
+movie *build_movie(char *title, int year, char langs[][MAX_LANG_LEN], int lang_count, double rating) {
     // allocating memory with 'malloc'
-    Movie *new_movie = malloc(sizeof(Movie));
+    movie *new_movie = malloc(sizeof(movie));
     // dynamically allocating title (including null terminator)
     new_movie->title = malloc(strlen(title) + 1);
     // copying title into memory
@@ -53,7 +53,7 @@ Movie *build_movie(char *title, int year, char langs[][MAX_LANG_LEN], int lang_c
 
 // <------- CSV Reading Function ----->
 // Reads CSV file and builds linked list of movies
-Movie *read_movie_csv(const char *filename, int *movie_count) {
+movie *read_movie_csv(const char *filename, int *movie_count) {
     // opening file
     FILE *fp = fopen(filename, "r");
     if (!fp) {
@@ -66,8 +66,8 @@ Movie *read_movie_csv(const char *filename, int *movie_count) {
     fgets(line, sizeof(line), fp);
 
     // resetting head and tail
-    Movie *head = NULL;
-    Movie *tail = NULL;
+    movie *head = NULL;
+    movie *tail = NULL;
     *movie_count = 0;
 
     // reading though csv of format: Title,Year,Languages,Rating Value
@@ -106,7 +106,7 @@ Movie *read_movie_csv(const char *filename, int *movie_count) {
         }
 
         // building movie
-        Movie *movie = build_movie(title, year, langs, count_lang, rating);
+        movie *movie = build_movie(title, year, langs, count_lang, rating);
 
         // check if linked list is empty
         // if so, add and point to new movie
@@ -125,7 +125,7 @@ Movie *read_movie_csv(const char *filename, int *movie_count) {
 
 // <------ Menu Option 1 ------>
 // Show movies release in the specified year
-void menu_option_1(Movie *head, int year) {
+void menu_option_1(movie *head, int year) {
     int found = 0;
     while (head) {
         // if movie(s) with given year is/are found
@@ -145,17 +145,17 @@ void menu_option_1(Movie *head, int year) {
 
 // <------ Menu Option 2 ------>
 // Show highest rated movie for each year
-void menu_option_2(Movie *head) {
+void menu_option_2(movie *head) {
     // valid year range is 1900 to 2021
     int valid_years[RANGE_YEAR] = {0};
-    for (Movie *b = head; b != NULL; b = b->next) {
+    for (movie *b = head; b != NULL; b = b->next) {
         if (b->year < MIN_YEAR || b->year > MAX_YEAR) continue;
         if (valid_years[b->year - MIN_YEAR]) continue;
 
         // init max var
-        Movie *max = b;
+        movie *max = b;
         // iterating & determining max
-        for (Movie *c = b->next; c != NULL; c = c->next) {
+        for (movie *c = b->next; c != NULL; c = c->next) {
             if (c->year == b->year && c->rating > max->rating) {
                 max = c;
             }
@@ -169,9 +169,9 @@ void menu_option_2(Movie *head) {
 
 // <------ Menu Option 3 ------>
 // Show movies and their year of release for a specific language
-void menu_option_3(Movie *head, const char *single_lang) {
+void menu_option_3(movie *head, const char *single_lang) {
     // starting from the beginning of the linked list
-    Movie *current = head;
+    movie *current = head;
     int found = 0;
     
     while (current) {
@@ -214,9 +214,9 @@ void menu_option_3(Movie *head, const char *single_lang) {
 
 // <------ Memory Freeing Function ----->
 // Gets rid of used allocated memory to open up more space for linked list
-void free_memory(Movie *head) {
+void free_memory(movie *head) {
     while (head) {
-        Movie *temp = head;
+        movie *temp = head;
         head = head->next;
         free(temp->title);
         free(temp);
@@ -232,7 +232,7 @@ int main() {
 
     scanf("%50s", filename);
 
-    Movie *movies = read_movie_csv(filename, &movie_count);
+    movie *movies = read_movie_csv(filename, &movie_count);
     if (!movies) {
         return 1;
     }
