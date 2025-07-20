@@ -62,13 +62,12 @@ movie *read_movie_csv(const char *filename, int *movie_count) {
     }
 
     char line[1024];
-    // skipping header line
-    fgets(line, sizeof(line), file);
-
     // resetting head and tail
     movie *head = NULL;
     movie *tail = NULL;
     *movie_count = 0;
+
+    fgets(line, sizeof(line), file);
 
     // reading though csv of format: Title,Year,Languages,Rating Value
     while(fgets(line, sizeof(line), file)) {
@@ -226,16 +225,16 @@ void free_memory(movie *head) {
 // <-------- Main Function -------->
 // calls all print statements in order to match given project example in the
 // instruction screenshots, makes calls to functions, and end program
-int main() {
-    char filename[51];
-    int movie_count = 0;
-
-    scanf("%50s", filename);
-
-    movie *movies = read_movie_csv(filename, &movie_count);
-    if (!movies) {
+int main(int argc, const char *argv) {
+    if (argc < 2) {
+        fprintf(stderr, "please enter a valid filename", argv[0]);
         return 1;
     }
+
+    const char *filename = argv[1];
+    int movie_count = 0;
+
+    movie *movies = read_movie_csv(filename, &movie_count);
 
     // first line of output
     printf("Processed %s and parsed data from %d movies\n\n", filename, movie_count);
@@ -260,7 +259,7 @@ int main() {
         // 1. Show movies release in the specified year
         if (choice == 1) {
             int year;
-            printf("Enter the year for which you want to see movies: ");
+            printf("Enter the year for which you want to see movies: \n");
             if (scanf("%d", &year) != 1) {
                 while (getchar() != '\n');
                 printf("No data about movies released in the year %d.\n", year);
