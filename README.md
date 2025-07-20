@@ -9,4 +9,4 @@
 Using a linked list structure to dynamically allocate data. Linked lists are of the form:
 
         head           node            tail
-    [data:next] --> [data:next] --> [data:next] --> NULL 
+    [data:next] --> [data:next] --> [data:next] --> NULL  
