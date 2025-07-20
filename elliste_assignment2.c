@@ -238,7 +238,7 @@ int main() {
     }
 
     // first line of output
-    printf("Processed %s. and parsed data from %d movies\n\n", filename, movie_count);
+    printf("Processed %s and parsed data from %d movies\n\n", filename, movie_count);
 
     // options menu
     int choice;
