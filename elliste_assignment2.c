@@ -227,8 +227,10 @@ void free_memory(Movie *head) {
 // calls all print statements in order to match given project example in the
 // instruction screenshots, makes calls to functions, and end program
 int main() {
-    const char *filename = "movies_sample_1.csv";
+    char filename[51];
     int movie_count = 0;
+
+    scanf("%50s", filename);
 
     Movie *movies = read_movie_csv(filename, &movie_count);
     if (!movies) {
