@@ -1,2 +1,1 @@
-# Movies
-Programming Assignment 2 : Movies
+# Programming Assignment 2 : books
